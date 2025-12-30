@@ -1,21 +1,13 @@
 package com.tcs.dto;
 
-public class ProfileUpdateRequestDto {
+public class AdminUpdateUserProfileDto {
 
     private Long userId;
     private String name;
     private String email;
     private String phone;
-    private String password;
-    
 
-    public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public Long getUserId() { return userId; }
+    public Long getUserId() { return userId; }
     public void setUserId(Long userId) { this.userId = userId; }
 
     public String getName() { return name; }

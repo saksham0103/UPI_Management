@@ -2,8 +2,13 @@ package com.tcs.controller;
 
 import com.tcs.dto.AdminResetPasswordRequestDto;
 import com.tcs.dto.AdminUpdateContactRequestDto;
+import com.tcs.dto.AdminUpdateUserProfileDto;
+import com.tcs.dto.AdminUserResponseDto;
 import com.tcs.dto.ApiResponseDto;
 import com.tcs.services.AdminUserService;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,4 +36,20 @@ public class AdminUserController {
         adminUserService.updateUserContact(request);
         return new ApiResponseDto(true, "User contact updated");
     }
+    
+    @GetMapping("/list")
+    public Page<AdminUserResponseDto> listUsers(Pageable pageable) {
+        return adminUserService.listUsers(pageable);
+    }
+    
+    @PutMapping("/update-profile")
+    public ApiResponseDto updateProfile(
+            @RequestBody AdminUpdateUserProfileDto request) {
+
+        adminUserService.updateUserProfile(request);
+        return new ApiResponseDto(true, "User profile updated");
+    }
+
+    
+    
 }
