@@ -1,10 +1,21 @@
 package com.tcs.entity;
 
-import com.tcs.enums.TransactionType;
-import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import com.tcs.enums.TransactionType;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "transactions")
@@ -12,7 +23,11 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id; // ✅ ONLY auto_increment column
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(nullable = false)
     private String fromAccount;
@@ -25,34 +40,78 @@ public class Transaction {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TransactionType transactionType; // DEBIT / CREDIT
+    private TransactionType transactionType;
 
     @Column(nullable = false)
-    private String status; // SUCCESS / FAILED / PENDING
+    private String status;
 
     @Column(nullable = false)
     private LocalDateTime transactionTime;
 
-    public Transaction() {}
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() { return userId; }
-    public void setId(Long id) { this.userId = id; }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getFromAccount() { return fromAccount; }
-    public void setFromAccount(String fromAccount) { this.fromAccount = fromAccount; }
+	public User getUser() {
+		return user;
+	}
 
-    public String getToAccount() { return toAccount; }
-    public void setToAccount(String toAccount) { this.toAccount = toAccount; }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public BigDecimal getAmount() { return amount; }
-    public void setAmount(BigDecimal amount) { this.amount = amount; }
+	public String getFromAccount() {
+		return fromAccount;
+	}
 
-    public TransactionType getTransactionType() { return transactionType; }
-    public void setTransactionType(TransactionType transactionType) { this.transactionType = transactionType; }
+	public void setFromAccount(String fromAccount) {
+		this.fromAccount = fromAccount;
+	}
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+	public String getToAccount() {
+		return toAccount;
+	}
 
-    public LocalDateTime getTransactionTime() { return transactionTime; }
-    public void setTransactionTime(LocalDateTime transactionTime) { this.transactionTime = transactionTime; }
+	public void setToAccount(String toAccount) {
+		this.toAccount = toAccount;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public TransactionType getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(TransactionType transactionType) {
+		this.transactionType = transactionType;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public LocalDateTime getTransactionTime() {
+		return transactionTime;
+	}
+
+	public void setTransactionTime(LocalDateTime transactionTime) {
+		this.transactionTime = transactionTime;
+	}
+
+    // getters & setters
+    
 }

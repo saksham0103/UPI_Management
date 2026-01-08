@@ -9,6 +9,5 @@ public interface ProfileService {
 
     UserProfileResponseDto updateProfile(
             String username,
-            ProfileUpdateRequestDto request
-    );
+            ProfileUpdateRequestDto request);
 }
